@@ -1,12 +1,23 @@
 package main
 
 import (
-	"fmt"
-
-	"codeup.aliyun.com/vintop/common/common/util"
+	"github.com/asim/go-micro/v3"
+	k8s "github.com/micro/examples/kubernetes/go/micro"
+	// k8s "github.com/micro/kubernetes/go/micro"
 )
 
+//TODO: 重构配置
 func main() {
-	fmt.Println("vim-go")
-	fmt.Println(util.StrNow())
+
+	// router := gin.Default()
+	// API.InitRoute(router)
+	if true {
+		service := micro.NewService(micro.Name("hardware"), micro.Address(":8080"))
+	} else {
+		service = k8s.NewService(micro.Name("hardware"))
+	}
+
+	// service.Handle("/", router)
+	service.Init()
+	service.Run()
 }
